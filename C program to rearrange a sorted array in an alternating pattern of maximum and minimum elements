@@ -1,0 +1,28 @@
+#include <stdio.h>
+void rearrangeArray(int arr[], int n) {
+    int start = 0;
+    int end = n - 1;
+    int max_element = arr[n - 1] + 1;
+    for (int i = 0; i < n; i++) {
+        if (i % 2 == 0) {
+            arr[i] += (arr[end] % max_element) * max_element;
+            end--;
+        } else {
+            arr[i] += (arr[start] % max_element) * max_element;
+            start++;
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        arr[i] = arr[i] / max_element;
+    }
+}
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    rearrangeArray(arr, n);
+    printf("Rearranged Array: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}

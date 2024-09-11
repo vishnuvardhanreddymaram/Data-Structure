@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+int compare(const void *a, const void *b)
+{
+    return (*(int*)a - *(int*)b);
+}
+int findMissingPositive(int arr[], int size)
+{
+    qsort(arr, size, sizeof(int), compare);
+    int smallestMissing = 1;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == smallestMissing) {
+            smallestMissing++;
+        }
+    }
+    return smallestMissing;
+}
+int main() {
+    int arr[] = {2, 3, 7, 6, 8, -1, -10, 15};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    printf("The smallest positive missing number is: %d\n", findMissingPositive(arr, size));
+    return 0;
+}

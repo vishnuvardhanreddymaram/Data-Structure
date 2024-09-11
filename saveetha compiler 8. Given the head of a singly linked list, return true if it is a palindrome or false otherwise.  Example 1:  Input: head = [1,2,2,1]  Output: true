@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+struct ListNode {
+    int val;
+    struct ListNode *next;
+};
+struct ListNode* reverseList(struct ListNode* head) {
+    struct ListNode *prev = NULL, *curr = head, *next = NULL;
+    while (curr) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+bool isPalindrome(struct ListNode* head) {
+    if (!head || !head->next) return true;
+    struct ListNode *slow = head, *fast = head, *secondHalf;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    secondHalf = reverseList(slow);
+    while (secondHalf) {
+        if (head->val != secondHalf->val) return false;
+        head = head->next;
+        secondHalf = secondHalf->next;
+    }
+    return true;
+}
+int main() {
+    // Example usage
+    struct ListNode* head = malloc(sizeof(struct ListNode));
+    head->val = 1;
+    head->next = malloc(sizeof(struct ListNode));
+    head->next->val = 2;
+    head->next->next = malloc(sizeof(struct ListNode));
+    head->next->next->val = 2;
+    head->next->next->next = malloc(sizeof(struct ListNode));
+    head->next->next->next->val = 1;
+    head->next->next->next->next = NULL;
+
+    printf(isPalindrome(head) ? "Palindrome\n" : "Not a Palindrome\n");
+    return 0;
+}

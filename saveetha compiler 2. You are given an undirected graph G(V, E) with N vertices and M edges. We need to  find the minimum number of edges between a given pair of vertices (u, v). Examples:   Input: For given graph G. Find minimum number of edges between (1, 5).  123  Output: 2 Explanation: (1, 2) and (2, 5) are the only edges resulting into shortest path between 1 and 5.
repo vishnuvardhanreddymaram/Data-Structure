@@ -1,0 +1,32 @@
+#include <stdio.h>
+#define MAX 100
+
+int graph[MAX][MAX], visited[MAX], dist[MAX];
+
+int bfs(int start, int target, int n) {
+    int queue[MAX], front = 0, rear = 0, i;
+    visited[start] = 1; dist[start] = 0;
+    queue[rear++] = start;
+    while (front < rear) {
+        int current = queue[front++];
+        for (i = 0; i < n; i++) {
+            if (graph[current][i] && !visited[i]) {
+                visited[i] = 1;
+                dist[i] = dist[current] + 1;
+                queue[rear++] = i;
+                if (i == target) return dist[i];
+            }
+        }
+    }
+    return -1;
+}
+
+int main() {
+    int n = 7, u = 1, v = 5;
+    graph[0][1] = graph[1][0] = graph[0][2] = graph[2][0] = 1;
+    graph[0][4] = graph[4][0] = graph[2][4] = graph[4][2] = 1;
+    graph[3][4] = graph[4][3] = graph[4][5] = graph[5][4] = 1;
+    graph[4][6] = graph[6][4] = 1;
+    printf("Min edges between %d and %d: %d\n", u, v, bfs(u, v, n));
+    return 0;
+}

@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void printReverse(struct Node* head) {
+    struct Node* stack[100];
+    int top = -1;
+    struct Node* temp = head;
+    while (temp != NULL) {
+        stack[++top] = temp;
+        temp = temp->next;
+    }
+    while (top >= 0) {
+        printf("%d ", stack[top--]->data);
+    }
+}
+
+int main() {
+    struct Node* head = createNode(2);
+    head->next = createNode(4);
+    head->next->next = createNode(3);
+    printf("Reversed Linked List: ");
+    printReverse(head);
+    return 0;
+}

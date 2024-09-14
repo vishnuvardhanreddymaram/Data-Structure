@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#define MAX_SIZE 1000
+typedef struct {
+    int stack1[MAX_SIZE];
+    int stack2[MAX_SIZE];
+    int top1, top2;
+} MyQueue;
+void myQueueInit(MyQueue* q) {
+    q->top1 = -1;
+    q->top2 = -1;
+}
+void push(MyQueue* q, int x) {
+    q->stack1[++(q->top1)] = x;
+}
+int pop(MyQueue* q) {
+    if (q->top2 == -1) {
+        while (q->top1 != -1) {
+            q->stack2[++(q->top2)] = q->stack1[(q->top1)--];
+        }
+    }
+    return q->stack2[(q->top2)--];
+}
+int peek(MyQueue* q) {
+    if (q->top2 == -1) {
+        while (q->top1 != -1) {
+            q->stack2[++(q->top2)] = q->stack1[(q->top1)--];
+        }
+    }
+    return q->stack2[q->top2];
+}
+bool empty(MyQueue* q) {
+    return q->top1 == -1 && q->top2 == -1;
+}
+int main() {
+    MyQueue q;
+    myQueueInit(&q);
+    printf("null\n");  
+    push(&q, 1);
+    printf("null\n");  
+    push(&q, 2);
+    printf("null\n"); 
+    printf("%d\n", peek(&q)); 
+    printf("%d\n", pop(&q));  
+    printf("%d\n", empty(&q)); 
+    return 0;
+}

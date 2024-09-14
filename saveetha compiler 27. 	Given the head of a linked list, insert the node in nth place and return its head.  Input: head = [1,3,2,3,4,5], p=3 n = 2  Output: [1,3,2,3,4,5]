@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+Node* createNode(int val) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = val;
+    newNode->next = NULL;
+    return newNode;
+}
+
+Node* insertNth(Node* head, int val, int n) {
+    Node* newNode = createNode(val);
+    if (n == 1) {
+        newNode->next = head;
+        return newNode;
+    }
+    Node* temp = head;
+    for (int i = 1; i < n - 1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+    newNode->next = temp->next;
+    temp->next = newNode;
+    return head;
+}
+
+void printList(Node* head) {
+    Node* temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    Node* head = createNode(1);
+    head->next = createNode(3);
+    head->next->next = createNode(2);
+    head->next->next->next = createNode(3);
+    head->next->next->next->next = createNode(4);
+    head->next->next->next->next->next = createNode(5);
+
+    int n = 3, p = 2;
+    head = insertNth(head, p, n);
+    printList(head);
+    return 0;
+}

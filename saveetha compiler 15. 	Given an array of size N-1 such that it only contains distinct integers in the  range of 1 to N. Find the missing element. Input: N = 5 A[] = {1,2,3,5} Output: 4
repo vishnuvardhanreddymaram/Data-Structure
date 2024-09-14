@@ -1,0 +1,16 @@
+#include <stdio.h>
+int findMissingElement(int A[], int N) {
+    int total_sum = N * (N + 1) / 2;
+    int array_sum = 0;
+    for (int i = 0; i < N - 1; i++) {
+        array_sum += A[i];
+    }
+        return total_sum - array_sum;
+}
+int main() {
+    int N = 5;
+    int A[] = {1, 2, 3, 5};
+    int missingElement = findMissingElement(A, N);
+    printf("The missing element is: %d\n", missingElement);
+    return 0;
+}

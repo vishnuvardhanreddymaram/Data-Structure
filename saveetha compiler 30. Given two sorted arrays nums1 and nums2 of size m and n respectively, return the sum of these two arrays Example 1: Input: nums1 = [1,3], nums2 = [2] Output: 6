@@ -1,0 +1,18 @@
+#include <stdio.h>
+int sumArrays(int nums1[], int m, int nums2[], int n) {
+    int sum = 0;
+    for (int i = 0; i < m; i++) {
+        sum += nums1[i];
+    }
+    for (int j = 0; j < n; j++) {
+        sum += nums2[j];
+    }
+    return sum;
+}
+int main() {
+    int nums1[] = {1, 3};
+    int nums2[] = {2};
+    int result = sumArrays(nums1, 2, nums2, 1);
+    printf("Output: %d\n", result);
+    return 0;
+}
